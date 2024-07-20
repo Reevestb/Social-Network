@@ -69,7 +69,7 @@ export default async function UserIdPage() {
   const Bio = await userBio();
 
   return (
-    <main className="flex flex-col items-center  ">
+    <main className="flex flex-col items-center max-h-screen  ">
       <Heading>{userData.username} Profile Page</Heading>
       <div id="profile-info">
         {Bio.map((item) => (
@@ -116,8 +116,12 @@ export default async function UserIdPage() {
         </form>
       </div>
       <br />
-      <section className="flex flex-row gap-10 mt-10">
-        <form className="flex flex-col items-center mr-10" action={handlePost}>
+
+      <section className="flex flex-row gap-10 mt-10 h-screen w-auto overflow-hidden">
+        <form
+          className="flex flex-col items-center mr-10 ml-4"
+          action={handlePost}
+        >
           <div className="flex flex-col">
             <input
               name="user_id"
@@ -151,17 +155,19 @@ export default async function UserIdPage() {
         </form>
         <div className="flex flex-col">
           <Heading>Your Previous Posts</Heading>
-          <Flex direction={"column-reverse"} align={"center"}>
-            {usersPosts.map((item) => (
-              <div key={item.id} className="flex flex-row mt-3">
-                <Card key={item.id} size={"1"}>
-                  <Flex key={item.id}>
-                    <Text>{item.content}</Text>
-                  </Flex>
-                </Card>
-              </div>
-            ))}
-          </Flex>
+          <div className="overflow-y-scroll">
+            <Flex direction={"column-reverse"} align={"center"}>
+              {usersPosts.map((item) => (
+                <div key={item.id} className="flex mt-3">
+                  <Card key={item.id} size={"1"}>
+                    <Flex key={item.id}>
+                      <Text>{item.content}</Text>
+                    </Flex>
+                  </Card>
+                </div>
+              ))}
+            </Flex>
+          </div>
         </div>
       </section>
     </main>
