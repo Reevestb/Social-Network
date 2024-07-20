@@ -1,5 +1,5 @@
 import { dbConnect } from "@/utils/dbConnection";
-import { Flex, Text, Button } from "@radix-ui/themes";
+import { Flex, Text, Heading, Card, Strong } from "@radix-ui/themes";
 
 export default async function PostsPage() {
   const db = dbConnect();
@@ -10,17 +10,22 @@ export default async function PostsPage() {
   ).rows;
 
   return (
-    <Flex direction={"column"} align={"center"}>
-      <Text className="text-4xl">Posts Feed</Text>
+    <main className="flex flex-col items-center">
+      <Heading size={"8"}>Posts Feed</Heading>
       <Flex direction={"column-reverse"}>
         {postData.map((item) => (
-          <div className="mt-10" key={item.id}>
-            <Text>{item.username}</Text>
-            <br />
-            <p>{item.content}</p>
+          <div key={item.id} className="mt-6 ">
+            <Card size={"2"} key={item.id}>
+              <Text as="div" weight={"medium"} size={"3"} align={"center"}>
+                <Strong>{item.username}</Strong>
+              </Text>
+              <Text as="p" align={"center"}>
+                {item.content}
+              </Text>
+            </Card>
           </div>
         ))}
       </Flex>
-    </Flex>
+    </main>
   );
 }

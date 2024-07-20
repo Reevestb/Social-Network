@@ -11,7 +11,7 @@ export function ActiveLink({ href, children }) {
     <Link
       href={href}
       className={
-        isActive ? "flex text-red-600 bg-white rounded-lg items-center" : ""
+        isActive ? "flex text-green-600 bg-white rounded-lg items-center" : ""
       }
     >
       {children}

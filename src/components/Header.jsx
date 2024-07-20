@@ -5,7 +5,6 @@ import {
   SignedIn,
   SignedOut,
 } from "@clerk/nextjs";
-// import { redirect } from "next/navigation";
 
 import { auth } from "@clerk/nextjs/server";
 import { ActiveLink } from "./ActiveLink.jsx";
@@ -16,7 +15,7 @@ export default function Header() {
 
   return (
     <>
-      <nav className="flex flex-row gap-5">
+      <nav className="flex flex-row gap-5 justify-end mr-48 min-w-max">
         <ActiveLink href="/">
           <p>Home</p>
         </ActiveLink>

@@ -2,7 +2,7 @@ import { dbConnect } from "@/utils/dbConnection";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { Flex, Text, Heading } from "@radix-ui/themes";
+import { Flex, Text, Heading, Card, Strong, Button } from "@radix-ui/themes";
 
 //getting userId from clerk
 export default async function UserIdPage() {
@@ -31,6 +31,7 @@ export default async function UserIdPage() {
       [clerk_id, username, location, bio]
     );
   }
+
   async function handlePost(formData) {
     "use server";
     const user = formData.get("user_id");
@@ -104,49 +105,65 @@ export default async function UserIdPage() {
             required
             placeholder="Write your bio here!"
           />
-          <button
+          <Button
+            variant="classic"
             type="submit"
             className="flex bg-white rounded text-black items-center text-center
              w-fit p-1 mt-2 justify-center hover:bg-gray-600 hover:text-white"
           >
             Create profile
-          </button>
+          </Button>
         </form>
       </div>
       <br />
-      <form className="flex flex-col items-center" action={handlePost}>
-        <div className="flex flex-col">
-          <input
-            name="user_id"
-            className="text-black"
-            defaultValue={userData.id}
-            hidden
-          />
-          <label htmlFor="content">Make a post full of your content!</label>
+      <section className="flex flex-row gap-10 mt-10">
+        <form className="flex flex-col items-center mr-10" action={handlePost}>
+          <div className="flex flex-col">
+            <input
+              name="user_id"
+              className="text-black"
+              defaultValue={userData.id}
+              hidden
+            />
+            <label
+              htmlFor="content"
+              className=" flex mb-5 mt-2 mr-10 justify-center"
+            >
+              <Strong>Create A Post</Strong>
+            </label>
 
-          <textarea
-            className="resize text-black"
-            name="content"
-            required
-            placeholder="Fill your post with content here!"
-          />
-        </div>
-        <button
-          type="submit"
-          className="flex bg-white rounded text-black items-center text-center
-             w-fit p-1 mt-2 justify-center hover:bg-gray-600 hover:text-white"
-        >
-          Post!
-        </button>
-      </form>
-      <Heading>Your Previous Posts</Heading>
-      <div className="flex flex-col-reverse">
-        {usersPosts.map((item) => (
-          <Flex key={item.id}>
-            <Text>{item.content}</Text>
+            <textarea
+              className="w-60 text-black outline outline-black border-black"
+              name="content"
+              required
+              placeholder="Fill your post with content here!"
+            />
+          </div>
+          <br />
+          <Button
+            variant="classic"
+            type="submit"
+            className="flex bg-gray-400 rounded text-black items-center text-center
+             w-fit p-1 mt-2 justify-center hover:bg-green-400 hover:text-white"
+          >
+            Post!
+          </Button>
+        </form>
+        <div className="flex flex-col">
+          <Heading>Your Previous Posts</Heading>
+          <Flex direction={"column-reverse"} align={"center"}>
+            {usersPosts.map((item) => (
+              <div key={item.id} className="flex flex-row mt-3">
+                <Card key={item.id} size={"1"}>
+                  <Flex key={item.id}>
+                    <Text>{item.content}</Text>
+                  </Flex>
+                </Card>
+              </div>
+            ))}
           </Flex>
-        ))}
-      </div>
+        </div>
+      </section>
     </main>
   );
 }
