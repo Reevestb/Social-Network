@@ -10,11 +10,11 @@ export default async function PostsPage() {
   ).rows;
 
   return (
-    <main className="flex flex-col items-center">
+    <main className="flex flex-col items-center max-h-screen">
       <Heading size={"8"}>Posts Feed</Heading>
-      <Flex direction={"column-reverse"}>
+      <Flex direction={"column-reverse"} overflow={"scroll"}>
         {postData.map((item) => (
-          <div key={item.id} className="mt-6 ">
+          <div key={item.id} className="mt-6">
             <Card size={"2"} key={item.id}>
               <Text as="div" weight={"medium"} size={"3"} align={"center"}>
                 <Strong>{item.username}</Strong>

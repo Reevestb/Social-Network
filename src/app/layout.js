@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
           <Theme accentColor="jade">
             <Header />
             {children}
-            <ThemePanel />
+            {/* <ThemePanel /> */}
           </Theme>
         </body>
       </html>
