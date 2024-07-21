@@ -19,7 +19,7 @@ export default function deleteButton({ userId, content }) {
       <form action={handleSubmit}>
         <button
           className="flex bg-red-600 rounded text-white items-center text-center
-             w-fit justify-center p-1 text-sm hover:bg-red-200 hover:text-red-600"
+             w-fit justify-center p-1 text-xs hover:bg-red-200 hover:text-red-600"
           type="submit"
         >
           <MdOutlineDeleteOutline />
