@@ -8,7 +8,6 @@ import {
 
 import { auth } from "@clerk/nextjs/server";
 import { ActiveLink } from "./ActiveLink.jsx";
-// import SeparatorPrim from "./SeparatorPrim.jsx";
 
 export default function Header() {
   //? destructure the userId for Auth

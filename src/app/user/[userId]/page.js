@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { Flex, Text, Heading, Card, Strong, Button } from "@radix-ui/themes";
 import HoverCard from "@/components/HoverCard";
+import DcBtn from "@/components/DeleteCom";
 
 //getting userId from clerk
 export default async function UserIdPage() {
@@ -69,8 +70,8 @@ export default async function UserIdPage() {
     ).rows;
     return bio;
   }
-  const Bio = await userBio();
 
+  const Bio = await userBio();
   const db = dbConnect();
   const usersData = (
     await db.query(`SELECT * FROM social_users WHERE clerk_id = $1`, [userId])
@@ -94,11 +95,12 @@ export default async function UserIdPage() {
               </Flex>
             ))}
           </div>
-          <Button variant="classic">
-            <a href="/edit-user">Edit Profile</a>
-          </Button>
-          <br />
-          <HoverCard />
+          <Flex direction={"row"} gap={"5"} align={"center"} justify={"center"}>
+            <Button variant="classic">
+              <a href="/edit-user">Edit Profile</a>
+            </Button>
+            <HoverCard />
+          </Flex>
           <br />
           <section className="flex flex-col gap-10 mt-10 w-auto">
             <form className="flex flex-col items-center" action={handlePost}>
@@ -144,8 +146,9 @@ export default async function UserIdPage() {
                   {usersPosts.map((item) => (
                     <div key={item.id} className="flex mt-3">
                       <Card key={item.id} size={"1"}>
-                        <Flex key={item.id}>
+                        <Flex key={item.id} direction={"row"} gap={"3"}>
                           <Text>{item.content}</Text>
+                          <DcBtn content={item.content} userId={item.user_id} />
                         </Flex>
                       </Card>
                     </div>
