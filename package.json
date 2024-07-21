@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^5.2.4",
+    "@radix-ui/react-hover-card": "^1.1.1",
     "@radix-ui/themes": "^3.1.1",
     "monorepo": "github:radix-ui/themes",
     "next": "14.2.5",

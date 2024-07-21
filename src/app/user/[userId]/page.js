@@ -3,6 +3,7 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { Flex, Text, Heading, Card, Strong, Button } from "@radix-ui/themes";
+import HoverCard from "@/components/HoverCard";
 
 //getting userId from clerk
 export default async function UserIdPage() {
@@ -96,7 +97,9 @@ export default async function UserIdPage() {
           <Button variant="classic">
             <a href="/edit-user">Edit Profile</a>
           </Button>
-
+          <br />
+          <HoverCard />
+          <br />
           <section className="flex flex-col gap-10 mt-10 w-auto">
             <form className="flex flex-col items-center" action={handlePost}>
               <div className="flex flex-col">
