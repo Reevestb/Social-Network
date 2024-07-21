@@ -27,7 +27,6 @@ export default function Header() {
         <ActiveLink href={`/user/${userId}`}>
           <p>Profile</p>
         </ActiveLink>
-        <br />
         <SignedIn>
           <UserButton />
         </SignedIn>
