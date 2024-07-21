@@ -77,76 +77,86 @@ export default async function UserIdPage() {
 
   if (usersData.length > 0) {
     return (
-      <main className="flex flex-col items-center max-h-screen  ">
-        <Heading>{userData.username} Profile Page</Heading>
-        <div id="profile-info">
-          {Bio.map((item) => (
-            <Flex direction={"column"} align={"center"} key={item.id}>
-              <Text>{item.location}</Text>
-              <Text>Bio: {item.bio}</Text>
-            </Flex>
-          ))}
-        </div>
-        <Button variant="classic">
-          <a href="/edit-user">Edit Profile</a>
-        </Button>
-
-        <section className="flex flex-row gap-10 mt-10 h-screen w-auto overflow-hidden">
-          <form
-            className="flex flex-col items-center mr-10 ml-4"
-            action={handlePost}
-          >
-            <div className="flex flex-col">
-              <input
-                name="user_id"
-                className="text-black"
-                defaultValue={userData.id}
-                hidden
-              />
-              <label
-                htmlFor="content"
-                className=" flex mb-5 mt-2 mr-10 justify-center text-3xl"
-              >
-                <Strong>Create A Post</Strong>
-              </label>
-
-              <textarea
-                className="flex flex-grow w-96 h-20 text-black outline outline-black border-black "
-                name="content"
-                required
-                placeholder="Fill your post with content here!"
-              />
-            </div>
-            <br />
-            <Button
-              variant="classic"
-              type="submit"
-              className="flex bg-gray-400 rounded text-black items-center text-center
-             w-fit p-1 mt-2 justify-center hover:bg-green-400 hover:text-white"
-            >
-              Post!
-            </Button>
-          </form>
-          <div className="flex flex-col">
-            <Heading>Your Previous Posts</Heading>
-            <div className="overflow-y-scroll">
-              <Flex direction={"column-reverse"} align={"center"}>
-                {usersPosts.map((item) => (
-                  <div key={item.id} className="flex mt-3">
-                    <Card key={item.id} size={"1"}>
-                      <Flex key={item.id}>
-                        <Text>{item.content}</Text>
-                      </Flex>
-                    </Card>
-                  </div>
-                ))}
+      <main className="flex flex-col items-center">
+        <Flex direction={"column"} align={"center"} maxWidth={"100vw"}>
+          <Heading size={"8"} className="m-2">
+            {userData.username} Profile Page
+          </Heading>
+          <div id="profile-info">
+            {Bio.map((item) => (
+              <Flex direction={"column"} align={"center"} key={item.id}>
+                <Text>
+                  Location:
+                  <Strong> {item.location}</Strong>
+                </Text>
+                <Text>Bio: {item.bio}</Text>
               </Flex>
-            </div>
+            ))}
           </div>
-        </section>
+          <Button variant="classic">
+            <a href="/edit-user">Edit Profile</a>
+          </Button>
+
+          <section className="flex flex-col gap-10 mt-10 w-auto">
+            <form className="flex flex-col items-center" action={handlePost}>
+              <div className="flex flex-col">
+                <input
+                  name="user_id"
+                  className="text-black"
+                  defaultValue={userData.id}
+                  hidden
+                />
+                <label
+                  htmlFor="content"
+                  className=" flex mb-5 mt-2 justify-center text-3xl"
+                >
+                  <Strong> Create A Post</Strong>
+                </label>
+
+                <textarea
+                  className="flex flex-grow w-96 h-20 text-black outline outline-black border-black "
+                  name="content"
+                  required
+                  placeholder="Fill your post with content here!"
+                />
+              </div>
+              <br />
+              <Button
+                variant="classic"
+                type="submit"
+                className="flex bg-gray-400 rounded text-black items-center text-center
+             w-fit p-1 mt-2 justify-center hover:bg-green-400 hover:text-white"
+              >
+                Post!
+              </Button>
+            </form>
+            <div className="flex flex-col items-center">
+              <Heading size={"7"}>Your Previous Posts</Heading>
+              <div>
+                <Flex
+                  direction={"column-reverse"}
+                  align={"center"}
+                  overflow={"scroll"}
+                >
+                  {usersPosts.map((item) => (
+                    <div key={item.id} className="flex mt-3">
+                      <Card key={item.id} size={"1"}>
+                        <Flex key={item.id}>
+                          <Text>{item.content}</Text>
+                        </Flex>
+                      </Card>
+                    </div>
+                  ))}
+                </Flex>
+              </div>
+            </div>
+          </section>
+        </Flex>
       </main>
     );
-  } else {
+  }
+  //!This is where the change is if they haven't made a profile
+  else {
     return (
       <main className="flex flex-col items-center max-h-screen  ">
         <Heading>{userData.username} Profile Page</Heading>
@@ -198,60 +208,6 @@ export default async function UserIdPage() {
         <Button variant="classic">
           <a href="/edit-user">Edit Profile</a>
         </Button>
-
-        {/* <section className="flex flex-row gap-10 mt-10 h-screen w-auto overflow-hidden">
-          <form
-            className="flex flex-col items-center mr-10 ml-4"
-            action={handlePost}
-          >
-            <div className="flex flex-col">
-              <input
-                name="user_id"
-                className="text-black"
-                defaultValue={userData.id}
-                hidden
-              />
-              <label
-                htmlFor="content"
-                className=" flex mb-5 mt-2 mr-10 justify-center text-3xl"
-              >
-                <Strong>Create A Post</Strong>
-              </label>
-
-              <textarea
-                className="flex flex-grow w-96 h-20 text-black outline outline-black border-black "
-                name="content"
-                required
-                placeholder="Fill your post with content here!"
-              />
-            </div>
-            <br />
-            <Button
-              variant="classic"
-              type="submit"
-              className="flex bg-gray-400 rounded text-black items-center text-center
-             w-fit p-1 mt-2 justify-center hover:bg-green-400 hover:text-white"
-            >
-              Post!
-            </Button>
-          </form>
-          <div className="flex flex-col">
-            <Heading>Your Previous Posts</Heading>
-            <div className="overflow-y-scroll">
-              <Flex direction={"column-reverse"} align={"center"}>
-                {usersPosts.map((item) => (
-                  <div key={item.id} className="flex mt-3">
-                    <Card key={item.id} size={"1"}>
-                      <Flex key={item.id}>
-                        <Text>{item.content}</Text>
-                      </Flex>
-                    </Card>
-                  </div>
-                ))}
-              </Flex>
-            </div>
-          </div>
-        </section> */}
       </main>
     );
   }
