@@ -8,7 +8,8 @@ export default function ErrorPage({ error, reset }) {
         This page is restricted unless you sign-up or sign in, Please create an
         account or log in to view your profile!
       </p>
-      {/* <p>{error.message}</p> */}
+      <br></br>
+      <p>{error.message}</p>
       <a
         href="/sign-up"
         className="flex bg-white rounded text-black items-center text-center

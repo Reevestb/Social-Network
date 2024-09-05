@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { Flex, Text, Heading, Card, Strong, Button } from "@radix-ui/themes";
 import HoverCard from "@/components/HoverCard";
 import DcBtn from "@/components/DeleteCom";
+// import Pm from "@/components/Post-form";
 
 //getting userId from clerk
 export default async function UserIdPage() {
@@ -127,7 +128,6 @@ export default async function UserIdPage() {
                   maxLength={"400"}
                 />
               </div>
-              {/* <br /> */}
               <div className="pt-2">
                 <Button
                   variant="classic"
@@ -139,6 +139,9 @@ export default async function UserIdPage() {
                 </Button>
               </div>
             </form>
+
+            {/* <Pm userData={userData.id} formData={handlePost(formData)} /> */}
+
             <div className="flex flex-col items-center">
               <Heading size={"7"}>Your Previous Posts</Heading>
 
