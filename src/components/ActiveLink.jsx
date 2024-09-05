@@ -10,9 +10,7 @@ export function ActiveLink({ href, children }) {
   return (
     <Link
       href={href}
-      className={
-        isActive ? "flex text-green-600 bg-white rounded-lg items-center" : ""
-      }
+      className={isActive ? "flex text-green-600 bg-white" : ""}
     >
       {children}
     </Link>

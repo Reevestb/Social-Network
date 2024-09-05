@@ -79,7 +79,7 @@ export default async function UserIdPage() {
 
   if (usersData.length > 0) {
     return (
-      <main className="flex flex-col items-center">
+      <main className="flex flex-col items-center pl-4 pr-4 max-w-5xl mx-auto">
         <Flex direction={"column"} align={"center"} maxWidth={"100vw"}>
           <Heading size={"8"} className="m-2">
             {userData.username} Profile Page
@@ -102,7 +102,7 @@ export default async function UserIdPage() {
             <HoverCard />
           </Flex>
           <br />
-          <section className="flex flex-col gap-10 mt-10 w-auto">
+          <section className="flex flex-col gap-10 mt-5 w-auto">
             <form className="flex flex-col items-center" action={handlePost}>
               <div className="flex flex-col">
                 <input
@@ -119,25 +119,28 @@ export default async function UserIdPage() {
                 </label>
 
                 <textarea
-                  className="flex flex-grow w-96 h-20 text-black outline outline-black border-black "
+                  className=" w-80 h-20 text-black outline outline-black border-black md:w-[40rem] "
                   name="content"
                   required
                   placeholder="Fill your post with content here!"
                 />
               </div>
-              <br />
-              <Button
-                variant="classic"
-                type="submit"
-                className="flex bg-gray-400 rounded text-black items-center text-center
-             w-fit p-1 mt-2 justify-center hover:bg-green-400 hover:text-white"
-              >
-                Post!
-              </Button>
+              {/* <br /> */}
+              <div className="pt-2">
+                <Button
+                  variant="classic"
+                  type="submit"
+                  className="flex bg-gray-400 rounded text-black items-center text-center
+             w-fit pt-1 mt-2 justify-center hover:bg-green-400 hover:text-white"
+                >
+                  Post!
+                </Button>
+              </div>
             </form>
             <div className="flex flex-col items-center">
               <Heading size={"7"}>Your Previous Posts</Heading>
-              <div>
+
+              <div className="flex pb-4">
                 <Flex
                   direction={"column-reverse"}
                   align={"center"}
@@ -145,10 +148,24 @@ export default async function UserIdPage() {
                 >
                   {usersPosts.map((item) => (
                     <div key={item.id} className="flex mt-3">
-                      <Card key={item.id} size={"1"}>
-                        <Flex key={item.id} direction={"row"} gap={"3"}>
+                      <Card
+                        key={item.id}
+                        size={"1"}
+                        className="flex w-[20rem] lg:w-[32rem] items-center"
+                      >
+                        <Flex
+                          key={item.id}
+                          direction={"row"}
+                          gap={"3"}
+                          // className="flex w-[20rem] lg:w-[32rem] items-center"
+                          justify={"between"}
+                        >
                           <Text>{item.content}</Text>
-                          <DcBtn content={item.content} userId={item.user_id} />
+                          <DcBtn
+                            content={item.content}
+                            userId={item.user_id}
+                            use_id={userId}
+                          />
                         </Flex>
                       </Card>
                     </div>

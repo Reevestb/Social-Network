@@ -1,5 +1,7 @@
 import { dbConnect } from "@/utils/dbConnection";
 import { Flex, Text, Heading, Card, Strong } from "@radix-ui/themes";
+import DcBtn from "@/components/DeleteCom";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 export default async function PostsPage() {
   const db = dbConnect();
@@ -9,19 +11,42 @@ export default async function PostsPage() {
     )
   ).rows;
 
+  const { userId } = auth();
+  if (userId) {
+    const db = dbConnect();
+    await db.query(
+      `
+          SELECT * FROM social_users WHERE clerk_id = $1
+            `,
+      [userId]
+    );
+  }
+
   return (
-    <main className="flex flex-col items-center max-h-screen overflow-scroll">
+    <main className="flex flex-col items-center max-h-screen overflow-scroll p-2">
       <Heading size={"8"}>Posts Feed</Heading>
-      <Flex direction={"column-reverse"} justify={"end"} maxWidth={"50vw"}>
+      <Flex
+        direction={"column-reverse"}
+        justify={"end"}
+        // maxWidth={"80vw"}
+        className="flex max-w-2xl"
+      >
         {postData.map((item) => (
-          <div key={item.id} className="mt-4 mb-3 ">
+          <div key={item.id} className="mt-4 mb-3 items-center">
             <Card size={"2"} key={item.id}>
               <Text as="div" weight={"medium"} size={"3"} align={"center"}>
                 <Strong>{item.username}</Strong>
               </Text>
+              {/* <div className="flex justify-center "> */}
               <Text as="p" align={"center"}>
                 {item.content}
               </Text>
+              <DcBtn
+                content={item.content}
+                userId={item.user_id}
+                use_id={userId}
+              />
+              {/* </div> */}
             </Card>
           </div>
         ))}
