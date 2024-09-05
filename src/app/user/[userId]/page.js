@@ -84,7 +84,7 @@ export default async function UserIdPage() {
       <main className="flex flex-col items-center pl-4 pr-4 max-w-5xl mx-auto">
         <Flex direction={"column"} align={"center"} maxWidth={"100vw"}>
           <Heading size={"8"} className="m-2">
-            {userData.username} Profile Page
+            <span className="uppercase">{userData.username}</span> Profile Page
           </Heading>
           <div id="profile-info">
             {Bio.map((item) => (
