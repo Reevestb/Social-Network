@@ -38,6 +38,7 @@ export default async function UserIdPage() {
 
   async function handlePost(formData) {
     "use server";
+
     const user = formData.get("user_id");
     const post = formData.get("content");
     const db = dbConnect();
@@ -123,6 +124,7 @@ export default async function UserIdPage() {
                   name="content"
                   required
                   placeholder="Fill your post with content here!"
+                  maxLength={"400"}
                 />
               </div>
               {/* <br /> */}

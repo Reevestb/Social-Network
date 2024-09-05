@@ -5,9 +5,9 @@ import {
   SignedIn,
   SignedOut,
 } from "@clerk/nextjs";
+import LD from "@/components/light-dark.jsx";
 
 import { Separator } from "@radix-ui/themes";
-
 import { auth } from "@clerk/nextjs/server";
 import { ActiveLink } from "./ActiveLink.jsx";
 
@@ -17,11 +17,7 @@ export default function Header() {
   //
   return (
     <main>
-      {/* <SeparatorPrim /> */}
-      <nav
-        // className="flex flex-row gap-5 justify-between text-sm p-5 md:pl-10 md:pr-10"
-        className=" flex flex-row top-0 z-40 self-center justify-between max-w-5xl mx-auto p-4 text-sm md:text-[16px]"
-      >
+      <nav className=" flex flex-row top-0 z-40 self-center justify-between max-w-5xl mx-auto p-4 text-[15px] md:text-[16px] items-center">
         <div className="flex flex-row gap-4 ">
           <SignedIn>
             <UserButton />
@@ -31,12 +27,14 @@ export default function Header() {
             <SignInButton>Sign In</SignInButton>
           </SignedOut>
         </div>
+
+        <LD />
+
         <div className="flex flex-row gap-1 items-center">
           <ActiveLink href="/">
             <p>Home</p>
           </ActiveLink>
           <Separator orientation={"vertical"} />
-
           <ActiveLink href="/posts">
             <p>Post Feed</p>
           </ActiveLink>

@@ -8,10 +8,7 @@ export function ActiveLink({ href, children }) {
   const isActive = pathname === href;
 
   return (
-    <Link
-      href={href}
-      className={isActive ? "flex text-green-600 bg-white" : ""}
-    >
+    <Link href={href} className={isActive ? "flex text-green-600" : ""}>
       {children}
     </Link>
   );
