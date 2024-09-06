@@ -2,15 +2,18 @@ import { dbConnect } from "@/utils/dbConnection";
 import { Flex, Text, Heading, Card, Strong } from "@radix-ui/themes";
 import DcBtn from "@/components/DeleteCom";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import LikeBtnM from "@/components/Like";
+import DislikeBtnM from "@/components/Dislike";
 
 export default async function PostsPage() {
   const db = dbConnect();
   const postData = (
     await db.query(
-      `SELECT social_posts.user_id, social_posts.content, social_users.username, social_users.clerk_id FROM social_posts JOIN social_users ON social_posts.user_id = social_users.clerk_id WHERE social_posts.user_id = social_users.clerk_id`
+      `SELECT social_posts.user_id, social_posts.id, social_posts.content, social_posts.likes, social_users.username,  social_users.clerk_id FROM social_posts JOIN social_users ON social_posts.user_id = social_users.clerk_id WHERE social_posts.user_id = social_users.clerk_id`
     )
   ).rows;
 
+  const userData = await currentUser();
   const { userId } = auth();
   if (userId) {
     const db = dbConnect();
@@ -20,6 +23,21 @@ export default async function PostsPage() {
             `,
       [userId]
     );
+  }
+  function likeCheck(item) {
+    if (item.user_id != userId) {
+      return (
+        <div className="flex flex-row items-center ">
+          <LikeBtnM id={item.id} likes={item.likes} />
+          <br></br>
+          <Text className=" ml-2 mr-2">{item.likes}</Text>
+          <br></br>
+          <DislikeBtnM likes={item.likes} id={item.id} />
+        </div>
+      );
+    } else {
+      return <></>;
+    }
   }
 
   return (
@@ -37,16 +55,20 @@ export default async function PostsPage() {
               <Text as="div" weight={"medium"} size={"3"} align={"center"}>
                 <Strong>{item.username}</Strong>
               </Text>
-              {/* <div className="flex justify-center "> */}
+
               <Text as="p" align={"center"}>
                 {item.content}
               </Text>
-              <DcBtn
-                content={item.content}
-                userId={item.user_id}
-                use_id={userId}
-              />
-              {/* </div> */}
+              <div key={item.id} className="flex flex-row justify-center">
+                {likeCheck(item)}
+                <div>
+                  <DcBtn
+                    content={item.content}
+                    userId={item.user_id}
+                    use_id={userId}
+                  />
+                </div>
+              </div>
             </Card>
           </div>
         ))}
