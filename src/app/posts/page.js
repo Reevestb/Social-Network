@@ -9,7 +9,7 @@ export default async function PostsPage() {
   const db = dbConnect();
   const postData = (
     await db.query(
-      `SELECT social_posts.user_id, social_posts.id, social_posts.content, social_posts.likes, social_users.username,  social_users.clerk_id FROM social_posts JOIN social_users ON social_posts.user_id = social_users.clerk_id WHERE social_posts.user_id = social_users.clerk_id`
+      `SELECT social_posts.user_id, social_posts.id, social_posts.content, social_posts.likes, social_users.username,  social_users.clerk_id FROM social_posts JOIN social_users ON social_posts.user_id = social_users.clerk_id WHERE social_posts.user_id = social_users.clerk_id ORDER BY social_posts.id ASC`
     )
   ).rows;
 
