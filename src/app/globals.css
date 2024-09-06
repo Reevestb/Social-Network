@@ -31,3 +31,9 @@ body {
     text-wrap: balance;
   }
 }
+
+@media (max-width: 768px) {
+  #HoverCard {
+    display: none;
+  }
+}
