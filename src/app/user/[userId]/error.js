@@ -3,13 +3,15 @@
 export default function ErrorPage({ error, reset }) {
   return (
     <main className="flex min-h-screen flex-col items-center p-2">
-      <h1 className="text-6xl text-red-600">Error</h1>
+      <h1 className="text-6xl text-red-600 pt-10">Error</h1>
+      <br></br>
       <p>
         This page is restricted unless you sign-up or sign in, Please create an
         account or log in to view your profile!
       </p>
       <br></br>
-      <p>{error.message}</p>
+      <p className="flex justify-center items-center">{error.message}</p>
+      <br></br>
       <a
         href="/sign-up"
         className="flex bg-white rounded text-black items-center text-center
