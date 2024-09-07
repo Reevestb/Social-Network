@@ -155,22 +155,22 @@ export default async function UserIdPage() {
                   overflow={"scroll"}
                 >
                   {usersPosts.map((item) => (
-                    <div key={item.id} className="flex mt-3 justify-center">
+                    <div key={item.id} className="flex mt-3 justify-center ">
                       <Card
                         key={item.id}
                         size={"1"}
-                        className="flex w-[20rem] md:w-[32rem] items-center"
+                        className="flex w-[20rem] md:w-[32rem] items-center z-10"
                       >
                         <Flex
                           key={item.id}
-                          direction={"column"}
+                          direction={"row"}
                           gap={"3"}
                           // className="flex w-[20rem] lg:w-[32rem] items-center"
                           justify={"between"}
-                          align={"center"}
+                          // align={"center"}
                         >
                           <Text>{item.content}</Text>
-                          <div className="flex flex-row gap-2 relative justify-center">
+                          <div className="flex flex-col gap-2 relative justify-center">
                             <Edit
                               data={item.id}
                               content={item.content}

@@ -1,9 +1,84 @@
-"use client";
+// "use client";
+// import { useState } from "react";
+// import { MdEdit } from "react-icons/md";
+
+// export default function SeeEdit({ handleSubmit, content }) {
+//   const [see, setSee] = useState(false);
+
+//   const closeModal = () => setSee(false);
+
+//   // Function to handle form submission
+//   const handleFormSubmit = async (event) => {
+//     event.preventDefault(); // Prevent default form submission behavior
+//     const formData = new FormData(event.target);
+
+//     // Call the handleSubmit function, passing the form data
+//     await handleSubmit(formData);
+
+//     setSee(false); // Close the modal after form submission
+//   };
+
+//   return (
+//     <main className=" flex flex-col relative">
+//       {/* Button to open modal */}
+//       <button
+//         id="secretBtn"
+//         onClick={() => setSee(true)} // Open modal
+//         className="flex bg-white rounded text-black items-center text-center
+//              w-fit h-fit text-xs p-1 justify-center hover:bg-black hover:text-white "
+//       >
+//         <MdEdit />
+//       </button>
+
+//       {/* Modal */}
+//       {see && (
+//         // Modal background overlay
+//         <div className=" bg-black bg-opacity-50 flex justify-center items-center z-[9999] ">
+//           {/* Modal content */}
+//           <div className=" bg-white rounded-lg shadow-lg p-6 w-[18rem] md:w-[30rem] relative z-[10000]">
+//             {/* Close button */}
+//             <button
+//               onClick={closeModal}
+//               className="absolute top-2 right-2 text-black text-xl"
+//             >
+//               &times;
+//             </button>
+
+//             {/* Modal Form */}
+//             <form
+//               onSubmit={handleFormSubmit}
+//               className="flex flex-col justify-center space-y-4"
+//             >
+//               <textarea
+//                 name="content"
+//                 type="text"
+//                 placeholder="Your content Here"
+//                 id="content"
+//                 className="text-black w-full h-48 p-2 border border-gray-300 rounded"
+//                 defaultValue={content}
+//               />
+//               <button
+//                 className="hover:bg-green-700 h-8 hover:text-white bg-black rounded text-white items-center text-center w-full justify-center text-base"
+//                 type="submit"
+//               >
+//                 Submit Edit
+//               </button>
+//             </form>
+//           </div>
+//         </div>
+//       )}
+//     </main>
+//   );
+// }
+"use client"; // Ensure this component is only executed on the client-side
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // Adjust import based on your Next.js version
 import { MdEdit } from "react-icons/md";
+import ReactDOM from "react-dom";
 
 export default function SeeEdit({ handleSubmit, content }) {
   const [see, setSee] = useState(false);
+  const router = useRouter(); // Hook to access router
 
   const closeModal = () => setSee(false);
 
@@ -15,58 +90,64 @@ export default function SeeEdit({ handleSubmit, content }) {
     // Call the handleSubmit function, passing the form data
     await handleSubmit(formData);
 
-    setSee(false); // Close the modal after form submission
+    // Close the modal
+    setSee(false);
+
+    // Revalidate and redirect to the current path
+    router.refresh(); // Refresh the current page
+    router.push(router.asPath); // Ensure user stays on the current path
   };
 
   return (
-    <main className=" flex flex-col relative">
+    <main className="relative flex flex-col">
       {/* Button to open modal */}
       <button
         id="secretBtn"
         onClick={() => setSee(true)} // Open modal
         className="flex bg-white rounded text-black items-center text-center
-             w-fit h-fit text-xs p-1 justify-center hover:bg-black hover:text-white "
+             w-fit h-fit text-xs p-1 justify-center hover:bg-black hover:text-white"
       >
         <MdEdit />
       </button>
 
-      {/* Modal */}
-      {see && (
-        // Modal background overlay
-        <div className=" bg-black bg-opacity-50 flex justify-center items-center z-50 ">
-          {/* Modal content */}
-          <div className="bg-white rounded-lg shadow-lg p-6 w-[18rem] md:w-[30rem] relative z-60">
-            {/* Close button */}
-            <button
-              onClick={closeModal}
-              className="absolute top-2 right-2 text-black text-xl"
-            >
-              &times;
-            </button>
-
-            {/* Modal Form */}
-            <form
-              onSubmit={handleFormSubmit}
-              className="flex flex-col justify-center space-y-4"
-            >
-              <textarea
-                name="content"
-                type="text"
-                placeholder="Your content Here"
-                id="content"
-                className="text-black w-full h-48 p-2 border border-gray-300 rounded"
-                defaultValue={content}
-              />
+      {/* Render Modal using React Portals */}
+      {see &&
+        ReactDOM.createPortal(
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[9999]">
+            {/* Modal content */}
+            <div className="bg-white rounded-lg shadow-lg p-6 w-[18rem] md:w-[30rem] z-[10000] relative">
+              {/* Close button */}
               <button
-                className="hover:bg-green-700 h-8 hover:text-white bg-black rounded text-white items-center text-center w-full justify-center text-base"
-                type="submit"
+                onClick={closeModal}
+                className="absolute top-2 right-2 text-black text-xl"
               >
-                Submit Edit
+                &times;
               </button>
-            </form>
-          </div>
-        </div>
-      )}
+
+              {/* Modal Form */}
+              <form
+                onSubmit={handleFormSubmit}
+                className="flex flex-col justify-center space-y-4"
+              >
+                <textarea
+                  name="content"
+                  type="text"
+                  placeholder="Your content Here"
+                  id="content"
+                  className="text-black w-full h-48 p-2 border border-gray-300 rounded"
+                  defaultValue={content}
+                />
+                <button
+                  className="hover:bg-green-700 h-8 hover:text-white bg-black rounded text-white items-center text-center w-full justify-center text-base"
+                  type="submit"
+                >
+                  Submit Edit
+                </button>
+              </form>
+            </div>
+          </div>,
+          document.body // Render modal at the end of the body element
+        )}
     </main>
   );
 }
