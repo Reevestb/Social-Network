@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { Flex, Text, Heading, Card, Strong, Button } from "@radix-ui/themes";
 import HoverCard from "@/components/HoverCard";
 import DcBtn from "@/components/DeleteCom";
-// import Pm from "@/components/Post-form";
+import Edit from "@/components/EditPost";
 
 //getting userId from clerk
 export default async function UserIdPage() {
@@ -57,7 +57,10 @@ export default async function UserIdPage() {
   async function userPosts() {
     const db = dbConnect();
     const postData = (
-      await db.query(`SELECT * FROM social_posts WHERE user_id = $1 `, [userId])
+      await db.query(
+        `SELECT * FROM social_posts WHERE user_id = $1 ORDER BY id ASC`,
+        [userId]
+      )
     ).rows;
     return postData;
   }
@@ -81,7 +84,7 @@ export default async function UserIdPage() {
 
   if (usersData.length > 0) {
     return (
-      <main className="flex flex-col items-center pl-4 pr-4 max-w-5xl mx-auto">
+      <main className="flex flex-col items-center pl-4 pr-4 max-w-5xl mx-auto relative">
         <Flex direction={"column"} align={"center"} maxWidth={"100vw"}>
           <Heading size={"8"} className="m-2">
             <span className="uppercase">{userData.username}</span> Profile
@@ -121,7 +124,7 @@ export default async function UserIdPage() {
                 </label>
 
                 <textarea
-                  className=" w-80 h-20 text-black outline outline-black border-black md:w-[40rem] "
+                  className="w-80 h-20 text-black outline outline-black border-black md:w-[40rem] "
                   name="content"
                   required
                   placeholder="Fill your post with content here!"
@@ -156,21 +159,28 @@ export default async function UserIdPage() {
                       <Card
                         key={item.id}
                         size={"1"}
-                        className="flex w-[20rem] lg:w-[32rem] items-center"
+                        className="flex w-[20rem] md:w-[32rem] items-center"
                       >
                         <Flex
                           key={item.id}
-                          direction={"row"}
+                          direction={"column"}
                           gap={"3"}
                           // className="flex w-[20rem] lg:w-[32rem] items-center"
                           justify={"between"}
                         >
                           <Text>{item.content}</Text>
-                          <DcBtn
-                            content={item.content}
-                            userId={item.user_id}
-                            use_id={userId}
-                          />
+                          <div className="flex flex-row gap-2 relative justify-center">
+                            <Edit
+                              data={item.id}
+                              content={item.content}
+                              className="absolute top-2 right-2 text-black text-xl"
+                            />
+                            <DcBtn
+                              content={item.content}
+                              userId={item.user_id}
+                              use_id={userId}
+                            />
+                          </div>
                         </Flex>
                       </Card>
                     </div>

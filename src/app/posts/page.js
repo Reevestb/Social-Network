@@ -4,6 +4,7 @@ import DcBtn from "@/components/DeleteCom";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import LikeBtnM from "@/components/Like";
 import DislikeBtnM from "@/components/Dislike";
+import Edit from "@/components/EditPost";
 
 export default async function PostsPage() {
   const db = dbConnect();
@@ -27,7 +28,7 @@ export default async function PostsPage() {
   function likeCheck(item) {
     if (item.user_id != userId) {
       return (
-        <div className="flex flex-row items-center ">
+        <div className="flex flex-row items-center">
           <LikeBtnM id={item.id} likes={item.likes} />
           <br></br>
           <Text className=" ml-2 mr-2">{item.likes}</Text>
@@ -36,7 +37,16 @@ export default async function PostsPage() {
         </div>
       );
     } else {
-      return <></>;
+      return (
+        <main className="flex flex-row gap-2">
+          <Edit
+            data={item.id}
+            content={item.content}
+            className="absolute top-2 right-2 text-black text-xl"
+          />
+          <DcBtn content={item.content} userId={item.user_id} use_id={userId} />
+        </main>
+      );
     }
   }
 
@@ -51,7 +61,7 @@ export default async function PostsPage() {
       >
         {postData.map((item) => (
           <div key={item.id} className="mt-4 mb-3 items-center">
-            <Card size={"2"} key={item.id}>
+            <Card size={"2"} key={item.id} className="relative">
               <Text as="div" weight={"medium"} size={"3"} align={"center"}>
                 <Strong>{item.username}</Strong>
               </Text>
@@ -61,13 +71,6 @@ export default async function PostsPage() {
               </Text>
               <div key={item.id} className="flex flex-row justify-center">
                 {likeCheck(item)}
-                <div>
-                  <DcBtn
-                    content={item.content}
-                    userId={item.user_id}
-                    use_id={userId}
-                  />
-                </div>
               </div>
             </Card>
           </div>
