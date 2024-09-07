@@ -32,8 +32,8 @@ export default function SeeEdit({ handleSubmit, content }) {
       <button
         id="secretBtn"
         onClick={() => setSee(true)} // Open modal
-        className="flex bg-white rounded text-black items-center text-center
-             w-fit h-fit text-xs p-1 justify-center hover:bg-black hover:text-white"
+        className="flex bg-gray-100 rounded text-black items-center text-center
+             w-fit h-fit text-xs p-1 justify-center hover:bg-green-700 hover:text-white"
       >
         <MdEdit />
       </button>
