@@ -5,13 +5,12 @@ import { MdEdit } from "react-icons/md";
 export default function SeeEdit({ handleSubmit, content }) {
   const [see, setSee] = useState(false);
 
-  // Function to close modal
   const closeModal = () => setSee(false);
 
   // Function to handle form submission
   const handleFormSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submission behavior
-    const formData = new FormData(event.target); // Collect form data
+    const formData = new FormData(event.target);
 
     // Call the handleSubmit function, passing the form data
     await handleSubmit(formData);

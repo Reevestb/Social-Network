@@ -155,7 +155,7 @@ export default async function UserIdPage() {
                   overflow={"scroll"}
                 >
                   {usersPosts.map((item) => (
-                    <div key={item.id} className="flex mt-3">
+                    <div key={item.id} className="flex mt-3 justify-center">
                       <Card
                         key={item.id}
                         size={"1"}
@@ -167,6 +167,7 @@ export default async function UserIdPage() {
                           gap={"3"}
                           // className="flex w-[20rem] lg:w-[32rem] items-center"
                           justify={"between"}
+                          align={"center"}
                         >
                           <Text>{item.content}</Text>
                           <div className="flex flex-row gap-2 relative justify-center">

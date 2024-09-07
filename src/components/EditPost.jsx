@@ -13,8 +13,8 @@ export default async function EditButton({ data, content }) {
       content,
       data,
     ]);
-    revalidatePath(`/user/userId`);
-    redirect(`/user/userId`);
+    revalidatePath(``);
+    redirect(``);
   }
 
   return (
