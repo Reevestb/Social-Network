@@ -167,7 +167,7 @@ export default async function UserIdPage() {
                           gap={"3"}
                           // className="flex w-[20rem] lg:w-[32rem] items-center"
                           justify={"between"}
-                          // align={"center"}
+                          align={"center"}
                         >
                           <Text>{item.content}</Text>
                           <div className="flex flex-col gap-2 relative justify-center">
